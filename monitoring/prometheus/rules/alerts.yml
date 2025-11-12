@@ -1,0 +1,63 @@
+# Alert rules for Trend & Viral Engine Pro
+
+groups:
+  - name: trend_engine_alerts
+    interval: 30s
+    rules:
+      # API alerts
+      - alert: HighAPILatency
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 0.5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High API latency detected"
+          description: "P95 latency is above 500ms for 5 minutes"
+
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate on API"
+          description: "Error rate is above 5% for 2 minutes"
+
+      # Ingestion alerts
+      - alert: IngestionFailure
+        expr: increase(ingestion_errors_total[10m]) > 5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Multiple ingestion failures"
+          description: "More than 5 ingestion errors in 10 minutes"
+
+      # Model performance alerts
+      - alert: LowModelAUC
+        expr: model_auc < 0.75
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Model AUC below threshold"
+          description: "Model AUC is below 0.75, consider retraining"
+
+      # System resource alerts
+      - alert: HighMemoryUsage
+        expr: process_resident_memory_bytes > 4e9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Process using more than 4GB RAM"
+
+      - alert: HighCPUUsage
+        expr: rate(process_cpu_seconds_total[5m]) > 0.8
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage above 80% for 10 minutes"

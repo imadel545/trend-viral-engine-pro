@@ -1,0 +1,53 @@
+{
+  "modules": {
+    "ingestion": {
+      "files": 7,
+      "lines": 2888,
+      "path": "src/services/ingestion"
+    },
+    "features": {
+      "files": 5,
+      "lines": 1463,
+      "path": "src/services/features"
+    },
+    "scoring": {
+      "files": 4,
+      "lines": 948,
+      "path": "src/services/scoring"
+    },
+    "selection": {
+      "files": 4,
+      "lines": 805,
+      "path": "src/services/selection"
+    },
+    "generator": {
+      "files": 2,
+      "lines": 308,
+      "path": "src/services/generator"
+    },
+    "feedback": {
+      "files": 2,
+      "lines": 206,
+      "path": "src/services/feedback"
+    },
+    "forecasting": {
+      "files": 2,
+      "lines": 91,
+      "path": "src/services/forecasting"
+    },
+    "monitoring": {
+      "files": 1,
+      "lines": 501,
+      "path": "src/services/monitoring"
+    }
+  },
+  "total_lines": 7210,
+  "models_count": 10,
+  "test_files": 8,
+  "missing_modules": [
+    "gtts",
+    "youtube",
+    "pyttsx3",
+    "qdrant_client"
+  ]
+}

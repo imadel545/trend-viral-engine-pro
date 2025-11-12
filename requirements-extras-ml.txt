@@ -1,0 +1,47 @@
+# ═══════════════════════════════════════════════════════════════════
+# REQUIREMENTS EXTRAS - ML Avancé (Optionnel)
+# ═══════════════════════════════════════════════════════════════════
+# Installation: pip install -r requirements-extras-ml.txt
+# À installer APRÈS requirements-core.txt
+# Uniquement si vous avez besoin des features avancées
+
+# ───────────────────────────────────────────────────────────────────
+# Time Series Features
+# ───────────────────────────────────────────────────────────────────
+tsfresh==0.20.2
+statsforecast==1.6.0
+mlforecast==0.10.0
+pywavelets==1.5.0
+
+# ───────────────────────────────────────────────────────────────────
+# Multimodal (Vision + Text)
+# ───────────────────────────────────────────────────────────────────
+open-clip-torch==2.23.0
+timm==0.9.12
+
+# ───────────────────────────────────────────────────────────────────
+# Vector Database
+# ───────────────────────────────────────────────────────────────────
+qdrant-client==1.7.0
+chromadb==0.4.22
+
+# ───────────────────────────────────────────────────────────────────
+# Model Interpretability Advanced
+# ───────────────────────────────────────────────────────────────────
+lime==0.2.0.1
+interpret==0.5.0
+
+# ───────────────────────────────────────────────────────────────────
+# Drift Detection (⚠️ ATTENTION: Conflit Pydantic)
+# ───────────────────────────────────────────────────────────────────
+# ❌ NE PAS INSTALLER avec FastAPI 0.104+ qui nécessite Pydantic v2
+# evidently==0.4.13  # Nécessite pydantic<2.0
+# 
+# Solution temporaire: utiliser monitoring custom ou attendre evidently v0.5+
+# Voir: https://github.com/evidentlyai/evidently/issues/974
+
+# ───────────────────────────────────────────────────────────────────
+# AutoML Advanced
+# ───────────────────────────────────────────────────────────────────
+auto-sklearn==0.15.0  # Nécessite sklearn<1.5
+# autogluon.tabular==1.0.0  # Très lourd, installer séparément si besoin

@@ -1,0 +1,66 @@
+# Prometheus Configuration for Trend & Viral Engine Pro
+# Collecte des métriques de l'application pour monitoring
+
+global:
+  scrape_interval: 15s  # Scrape toutes les 15 secondes
+  evaluation_interval: 15s  # Évaluer les règles toutes les 15 secondes
+  external_labels:
+    cluster: 'trend-viral-engine'
+    environment: 'production'
+
+# Alertmanager configuration (optionnel)
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets: ['alertmanager:9093']
+
+# Règles d'alertes (optionnel)
+# rule_files:
+#   - "alert_rules.yml"
+
+# Configuration des scrapes
+scrape_configs:
+  # ============================================================================
+  # 1. API FASTAPI - Métriques principales
+  # ============================================================================
+  - job_name: 'fastapi-app'
+    static_configs:
+      - targets: ['app:8000']  # Service FastAPI
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+    
+  # ============================================================================
+  # 2. PROMETHEUS SELF-MONITORING
+  # ============================================================================
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    metrics_path: '/metrics'
+    scrape_interval: 30s
+
+  # ============================================================================
+  # 3. NODE EXPORTER - Métriques système (CPU, RAM, Disk)
+  # ============================================================================
+  # - job_name: 'node-exporter'
+  #   static_configs:
+  #     - targets: ['node-exporter:9100']
+  #   scrape_interval: 15s
+
+  # ============================================================================
+  # 4. MLFLOW - Métriques ML (optionnel)
+  # ============================================================================
+  # - job_name: 'mlflow'
+  #   static_configs:
+  #     - targets: ['mlflow:5000']
+  #   metrics_path: '/metrics'
+  #   scrape_interval: 30s
+
+# Métriques personnalisées attendues:
+# - viral_score_predictions_total: Nombre total de prédictions
+# - viral_score_duration_seconds: Durée des prédictions
+# - model_inference_duration_seconds: Temps d'inférence du modèle
+# - api_requests_total: Nombre total de requêtes API
+# - api_requests_duration_seconds: Durée des requêtes API
+# - content_generation_total: Nombre de contenus générés
+# - ingestion_records_total: Nombre de posts collectés
